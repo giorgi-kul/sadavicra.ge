@@ -102,7 +102,15 @@ namespace AcraWebsite.Caching
                         foreach (var branch in branches)
                         {
                             var slots = await _mohBookingClient.GetSlotsAsync(vaccine.Id, region.Id, branch.Id);
-                            if (!slots.Any())
+                            var availableSlots = slots
+                                .SelectMany(s => s.Schedules)
+                                .SelectMany(s => s.Dates)
+                                .SelectMany(d => d.Slots)
+                                .Where(s => s.Taken != true && s.Reserved != true)
+                                .ToList();
+
+
+                            if (!availableSlots.Any())
                                 continue;
 
                             var modelLocation = new VaccineLocation()
@@ -110,7 +118,7 @@ namespace AcraWebsite.Caching
                                 BranchId = branch.Id,
                                 BranchName = branch.Name,
                                 BranchAddress = branch.Address,
-                                AvailableCount = slots.Count()
+                                AvailableCount = availableSlots.Count()
                             };
                             municipalityModel.Locations.Add(modelLocation);
                         }
