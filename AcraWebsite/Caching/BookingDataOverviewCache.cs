@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using AcraWebsite.Models;
@@ -19,6 +20,7 @@ namespace AcraWebsite.Caching
         )
         {
             _mohBookingClient = mohBookingClient;
+            InitiateDataReload();
         }
 
         public BookingDataOverview GetAllData()
@@ -53,7 +55,40 @@ namespace AcraWebsite.Caching
         private async Task<BookingDataOverview> LoadData()
         {
             //TODO load Data from _mohBookingClient and assign to local variable
-            throw new NotImplementedException();
+
+            var mockModel = new BookingDataOverview();
+            mockModel.LastUpdateDt = DateTimeOffset.UtcNow;
+            mockModel.Vaccines = new Vaccine[]
+            {
+                new Vaccine()
+                {
+                    Name = "კოვიდ 19 ვაქცინაცია (AstraZeneca)",
+                    Description = "5 მაისიდან 20.00 სთ-დან იწყება ასტრაზენეკას მე-2 დოზაზე რეგისტრაცია. აცრის ჩატარება შესაძლებელი იქნება 10 მაისიდან. თქვენ შეგიძლიათ დარეგისტრირდეთ მე-2 დოზის მისაღებად ნებისმიერ დაწესებულებაში პირველი აცრიდან 4 - 12 კვირის ინტერვალში. ასაკობრივი შეზღუდვა არ ვრცელდება მათზე, ვინც პირველი დოზით აცრა ჩაიტარა ასტრაზენეკას ვაქცინით. \n დამატებითი ფანჯრები ეტაპობრივად გაიხსნება"
+                },
+                new Vaccine()
+                {
+                    Name = "კოვიდ 19 ვაქცინაცია (Sinopharm)",
+                    Municipalities = new Municipality[]
+                    {
+                        new Municipality()
+                        {
+                            Name = "ხულო",
+                            RegionName =  "აჭარა",
+                            Locations = new VaccineLocation[]
+                            {
+                                new VaccineLocation()
+                                {
+                                    BranchName = "სს \"ევექსის კლინიკები\"-ხულოს კლინიკა",
+                                    BranchAddress = "აღმაშენებლის ქ.N1",
+                                    AvailableCount =  1
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            return mockModel;
         }
     }
 }

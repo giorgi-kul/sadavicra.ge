@@ -8,6 +8,7 @@ namespace AcraWebsite.Models
     public class BookingDataOverview
     {
         public IEnumerable<Vaccine> Vaccines { get; set; }
+        public DateTimeOffset LastUpdateDt { get; set; }
     }
 
     public class Vaccine
@@ -15,17 +16,34 @@ namespace AcraWebsite.Models
         public string Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public IEnumerable<VaccineLocation> Locations { get; set; }
+        public IEnumerable<Municipality> Municipalities { get; set; }
+
+        public int AvailableCount
+            => Municipalities
+               ?.SelectMany(m => m.Locations)
+               .Sum(l => l.AvailableCount)
+               ?? 0;
     }
 
-    public class VaccineLocation
+    public class Municipality
     {
         public string RegionId { get; set; }
         public string RegionName { get; set; }
         public string MunicipalityId { get; set; }
-        public string MunicipalityName { get; set; }
+        public string Name { get; set; }
+        public IEnumerable<VaccineLocation> Locations { get; set; }
+
+        public int AvailableCount
+            => Locations
+               ?.Sum(l => l.AvailableCount)
+               ?? 0;
+    }
+
+    public class VaccineLocation
+    {
         public string BranchId { get; set; }
         public string BranchName { get; set; }
-        public int AvailableSlotCount { get; set; }
+        public int AvailableCount { get; set; }
+        public string BranchAddress { get; set; }
     }
 }

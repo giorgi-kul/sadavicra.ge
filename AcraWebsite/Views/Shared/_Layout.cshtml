@@ -10,8 +10,20 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <!-- JavaScript Bundle with Popper -->
 </head>
-<body>
+<body style="margin-bottom: 5rem;">
     <div class="container">
+        <div class="text-center">
+            <h1 class="display-4">sadavicra.ge</h1>
+            <p>გაიგე სად არის თავისუფალი ადგილი COVID აცრის გასაკეთებლად</p>
+            <p style="font-size: 12px">
+                მონაცემები ახლდება 1 წუთში ერთხელ
+                @if (Model.Overview != null)
+                {
+                    <span class="badge badge-pill badge-secondary btn-secondary">ბოლო განახლება @(Model.Overview.LastUpdateDt.ToString("dd MMMM, HH:mm"))</span>
+                }
+            </p>
+            <hr />
+        </div>
         @RenderBody()
     </div>
 

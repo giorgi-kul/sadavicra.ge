@@ -7,7 +7,7 @@ namespace MohBooking.Client
     {
         public static IServiceCollection AddMohBookingClientServices(this IServiceCollection services)
         {
-            services.AddScoped<IMohBookingClient, MohBookingClient>();
+            services.AddSingleton<IMohBookingClient, MohBookingClient>();
 
             services.AddHttpClient<MohBookingClient>(o =>
             {
