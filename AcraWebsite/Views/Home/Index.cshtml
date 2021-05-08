@@ -21,23 +21,25 @@
                             <p class="card-text">
                                 <b>@(municipality.RegionName) -> @(municipality.Name)</b>
                                 <span class="badge badge-secondary btn-success">@(municipality.AvailableCount) ადგილი</span>
-                                <ul class="list-group list-group-flush">
+                                <ul class="list-group">
                                     @if (municipality.Locations != null)
                                     {
                                         foreach (var location in municipality.Locations)
                                         {
                                             <li class="list-group-item">
-                                    <p class="card-text">
-                                        @(location.BranchName) (@(location.BranchAddress)) 
-                                        <span class="badge badge-secondary btn-success">@(location.AvailableCount) ადგილი</span>
-                                    </p>
-                                    </li>
-                                }
-                            }
-                                    </ul>
-                                    </p>
-                                }
-                            }
+                                                <span class="card-text">
+                                                    <span class="badge badge-secondary btn-secondary">
+                                                        @(location.AvailableCount)
+                                                    </span>
+                                                    @(location.BranchName) (@(location.BranchAddress))
+                                                </span>
+                                            </li>
+                                        }
+                                     }
+                                </ul>
+                            </p>
+                        }
+                    }
                 </div>
             </div>
         }
