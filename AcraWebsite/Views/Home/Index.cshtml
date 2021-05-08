@@ -1,8 +1,37 @@
-﻿@{
+﻿@model HomeViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">acra.ge</h1>
+    <p>გაიგე სად არის თავისუფალი ადგილი COVID აცრის გასაკეთებლად</p>
+    <hr />
+    @if (Model.Overview != null)
+    {
+        foreach (var vaccine in Model.Overview.Vaccines)
+        {
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">@(vaccine.Name)</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@(vaccine.Description)</h6>
+                    <ul class="list-group list-group-flush">
+
+                        @if (vaccine.Locations != null)
+                        {
+                            foreach (var location in vaccine.Locations)
+                            {
+                                <li class="list-group-item">
+                                    <p class="card-text">@(location.RegionName) =>@(location.MunicipalityName)</p>
+                                    <p class="card-text">@(location.BranchName)</p>
+                                    @(location.AvailableSlotCount) თავისუფლი ადგილი
+                                </li>
+                            }
+                        }
+
+                    </ul>
+                </div>
+            </div>
+        }
+    }
 </div>
