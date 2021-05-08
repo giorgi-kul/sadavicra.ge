@@ -5,4 +5,8 @@
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\MohBooking.Client\MohBooking.Client.csproj" />
+    </ItemGroup>
+
 </Project>
