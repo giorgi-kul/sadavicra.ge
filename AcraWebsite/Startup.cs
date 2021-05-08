@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AcraWebsite.Caching;
+using AcraWebsite.Jobs;
+using Hangfire;
+using Hangfire.MemoryStorage;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -30,6 +33,9 @@ namespace AcraWebsite
             services.AddMohBookingClientServices();
 
             services.AddSingleton<IBookingDataOverviewCache, BookingDataOverviewCache>();
+
+            services.AddHangfire(x => x.UseMemoryStorage());
+            services.AddHangfireServer();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -57,6 +63,9 @@ namespace AcraWebsite
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            //app.UseHangfireDashboard();
+            RecurringJob.AddOrUpdate<RefreshDataJob>(_ => _.Process(), Cron.Minutely);
         }
     }
 }
