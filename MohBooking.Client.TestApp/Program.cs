@@ -13,7 +13,7 @@ namespace MohBooking.Client.TestApp
 
             var client = serviceProvider.GetRequiredService<IMohBookingClient>();
 
-            var serviceTypes = await client.GetServiceTypesAsync();
+            var serviceTypes = await client.GetServicesAsync();
             var service = serviceTypes.Last();
 
             var regions = await client.GetRegionsAsync(service.Id);

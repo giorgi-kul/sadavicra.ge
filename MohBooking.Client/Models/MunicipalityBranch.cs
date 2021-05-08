@@ -8,7 +8,7 @@ namespace MohBooking.Client
         public string Id { get; set; }
 
         [JsonProperty("parentID")]
-        public string ParentID { get; set; }
+        public string ParentId { get; set; }
 
         [JsonProperty("tax")]
         public string Tax { get; set; }
@@ -20,19 +20,19 @@ namespace MohBooking.Client
         public string Address { get; set; }
 
         [JsonProperty("regionID")]
-        public string RegionID { get; set; }
+        public string RegionId { get; set; }
 
         [JsonProperty("municipality")]
         public string Municipality { get; set; }
 
         [JsonProperty("municipalityID")]
-        public string MunicipalityID { get; set; }
+        public string MunicipalityId { get; set; }
 
         [JsonProperty("settlement")]
         public string Settlement { get; set; }
 
         [JsonProperty("settlementID")]
-        public string SettlementID { get; set; }
+        public string SettlementId { get; set; }
 
     }
 }

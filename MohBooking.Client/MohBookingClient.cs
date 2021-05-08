@@ -16,7 +16,7 @@ namespace MohBooking.Client
             _httpClient = httpClient;
         }
 
-        public Task<IEnumerable<ServiceType>> GetServiceTypesAsync()
+        public Task<IEnumerable<ServiceType>> GetServicesAsync()
         {
             var requestMessage = new HttpRequestMessage(HttpMethod.Get, "CommonData/GetServicesTypes");
             return ProcessRequestAsync<IEnumerable<ServiceType>>(requestMessage);
@@ -45,9 +45,9 @@ namespace MohBooking.Client
         {
             var request = new GetSlotsRequest()
             {
-                ServiceID = serviceId,
-                RegionID = regionId,
-                BranchID = branchId,
+                ServiceId = serviceId,
+                RegionId = regionId,
+                BranchId = branchId,
                 StartDate = DateTime.UtcNow,
                 EndDate = DateTime.UtcNow.AddDays(31)
             };
@@ -63,8 +63,15 @@ namespace MohBooking.Client
             var responseMessage = await _httpClient.SendAsync(requestMessage);
             responseMessage.EnsureSuccessStatusCode();
             var responseContent = await responseMessage.Content.ReadAsStringAsync();
-            var responseData = JsonConvert.DeserializeObject<TResult>(responseContent);
-            return responseData;
+            try
+            {
+                var responseData = JsonConvert.DeserializeObject<TResult>(responseContent);
+                return responseData;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
     }
 }

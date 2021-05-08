@@ -5,7 +5,7 @@ namespace MohBooking.Client
 {
     public interface IMohBookingClient
     {
-        Task<IEnumerable<ServiceType>> GetServiceTypesAsync();
+        Task<IEnumerable<ServiceType>> GetServicesAsync();
         Task<IEnumerable<Region>> GetRegionsAsync(string serviceId);
         Task<IEnumerable<Region>> GetMunicipalitiesAsync(string serviceId, string regionId);
 
