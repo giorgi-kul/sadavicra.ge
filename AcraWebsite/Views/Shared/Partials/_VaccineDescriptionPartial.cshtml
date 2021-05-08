@@ -1,0 +1,14 @@
+﻿@model Vaccine
+@{
+    var lines = Model?.Description?.Split('\n');
+}
+
+@if (lines?.Length > 0)
+{
+    <ul>
+        @foreach (var line in lines)
+        {
+            <li>@(line)</li>
+        }
+    </ul>
+}

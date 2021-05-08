@@ -1,12 +1,11 @@
-﻿using System;
+﻿using AcraWebsite.Models;
+using Microsoft.Extensions.Logging;
+using MohBooking.Client;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AcraWebsite.Models;
-using Microsoft.AspNetCore.Mvc.TagHelpers;
-using Microsoft.Extensions.Logging;
-using MohBooking.Client;
 
 namespace AcraWebsite.Caching
 {
@@ -79,7 +78,7 @@ namespace AcraWebsite.Caching
                 {
                     Id = vaccine.Id,
                     Name = vaccine.Name,
-                    Description = "", //TODO: implemnet warning messages for Pfizer and AstraZeneka
+                    Description = GenerateVaccineDescription(vaccine.Id),
                     Municipalities = new List<Municipality>()
                 };
                 model.Vaccines.Add(vaccineModel);
@@ -125,6 +124,25 @@ namespace AcraWebsite.Caching
             model.LastUpdateDt = DateTimeOffset.UtcNow;
 
             return model;
+        }
+
+        private string GenerateVaccineDescription(string vaccineId)
+        {
+            switch (vaccineId)
+            {
+                case "efc7f5d4-f4b1-4095-ad53-717389ea8258":
+                    return
+                        "21 აპრილიდან თქვენ შეგიძლიათ დაჯავშნოთ ადგილი ფაიზერის მე-2 დოზის მისაღებად, რისთვისაც უნდა გქონდეთ ჩატარებული 1 დოზით აცრა.\n" +
+                        "აუცილებელია, რომ ჯავშანი გააკეთოთ იმავე კლინიკაში სადაც ჩაიატარეთ პირველი აცრა.\n" +
+                        "აუცილებელია, რომ ჯავშანი გააკეთოთ 21-30 დღიან შუალედში პირველი აცრიდან და არ ჩაეწეროთ 20 დღიან ინტერვალის გასვლამდე.\n" +
+                        "გთხოვთ შეინახეთ ჯავშნის კოდი, ვინაიდან ის დაგჭირდებათ უახლოეს მომავალაში კოვიდ პასპორტის მობილური აპლიკაციის გასააქტიურებლად\n";
+
+                case "4bb6c283-3afb-436c-9974-6730cd2a18bd":
+                    return "5 მაისიდან 20.00 სთ-დან იწყება ასტრაზენეკას მე-2 დოზაზე რეგისტრაცია. აცრის ჩატარება შესაძლებელი იქნება 10 მაისიდან. თქვენ შეგიძლიათ დარეგისტრირდეთ მე-2 დოზის მისაღებად ნებისმიერ დაწესებულებაში პირველი აცრიდან 4 - 12 კვირის ინტერვალში. ასაკობრივი შეზღუდვა არ ვრცელდება მათზე, ვინც პირველი დოზით აცრა ჩაიტარა ასტრაზენეკას ვაქცინით.\n" +
+                           "დამატებითი ფანჯრები ეტაპობრივად გაიხსნება";
+            }
+
+            return null;
         }
     }
 }
