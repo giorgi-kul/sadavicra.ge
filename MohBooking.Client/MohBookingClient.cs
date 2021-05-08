@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace MohBooking.Client
 {
-    public class MohBookingClient
+    public class MohBookingClient : IMohBookingClient
     {
         private readonly HttpClient _httpClient;
 

@@ -11,7 +11,7 @@ namespace MohBooking.Client.TestApp
         {
             using var serviceProvider = ConfigureSevices();
 
-            var client = serviceProvider.GetRequiredService<MohBookingClient>();
+            var client = serviceProvider.GetRequiredService<IMohBookingClient>();
 
             var serviceTypes = await client.GetServiceTypesAsync();
             var service = serviceTypes.Last();
